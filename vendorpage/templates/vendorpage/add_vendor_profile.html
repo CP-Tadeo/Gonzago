@@ -1,0 +1,43 @@
+{% extends 'vendorpage/base.html' %}
+
+{% block content %}
+<h2>Add Vendor Profile</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-row" style="display: flex; justify-content: center;">
+        <div style="max-width: 500px;">
+            {{ form.stall_name }}
+            <div class="form-group">
+                <label for="{{ form.stall_desc.id_for_label }}">Stall Description:</label>
+                {{ form.stall_desc }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.stall_availability.id_for_label }}">Stall Availability:</label>
+                {{ form.stall_availability }}
+            </div>
+        </div>
+        <div style="margin-left: 20px;">
+            {% if form.stall_image.value %}
+            <img src="{{ form.stall_image.value.url }}" alt="{{ form.stall_name.value }}" class="stall-image" style="width: 300px; height: 200px;">
+{% endif %}
+<div style="margin-top: 10px;">
+    {{ form.stall_image }}
+    {% if form.stall_image.value %}
+        <div style="margin-top: 5px;"><a href="{{ form.stall_image.value.url }}" target="_blank" class="btn btn-outline-secondary">View Image</a></div>
+    {% endif %}
+</div>
+
+        </div>
+    </div>
+    <div style="display: flex; justify-content: center; margin-top: 20px;">
+        <button type="submit" class="btn btn-outline-success">Save</button>
+    </div>
+</form>
+{% endblock %}
+
+<style>
+    textarea#id_stall_desc {
+        height: 150px;
+        resize: vertical;
+    }
+</style>

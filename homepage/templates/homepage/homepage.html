@@ -1,0 +1,35 @@
+{% extends 'homepage/base.html' %}
+{%load static%}
+{%block content%}
+<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+<div class="row">
+    {%for stall in stalls%}
+    <div class="col-lg-4">
+        <img class="thumbnail" src="{{stall.imageURL}}">
+        <div class="box-element product">
+            <div class="form-group" style="display: flex;">
+                <div>
+                    <h1><strong>{{stall.stall_name}}</strong></h1>
+                </div>
+                <div>
+                <label class="my-label" for="{{ form.stall_availability.id_for_label }}"></label>
+                {% if stall.stall_availability %}
+                    <span class="status status-open">Open</span>
+                {% else %}
+                    <span class="status status-closed">Closed</span>
+                {% endif %}
+            </div>
+            </div>
+            <h5><strong>{{stall.stall_desc}}</strong></h5>
+
+            <hr>
+            {% if stall.stall_availability %}
+            <a class="btn btn-outline-success" href="{% url 'menu' stall.stall_name.referenceKey %}">View</a>
+            {% else %}
+            <a class="btn btn-outline-secondary disabled" href="#" disabled>View</a>
+            {% endif %}            
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{%endblock content%}
